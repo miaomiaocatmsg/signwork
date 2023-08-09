@@ -1,6 +1,7 @@
 '''
+cron: 0 0 0 * * *
 new Env('知轩藏书 签到');
-
+Author: Mic_c
 '''
 
 
