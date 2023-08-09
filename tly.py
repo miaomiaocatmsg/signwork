@@ -1,5 +1,5 @@
 '''
-cron: 0 0 1 * * *
+cron: 0 0 * * * *
 new Env('TLY 签到');
 Author: Mic_c
 '''
