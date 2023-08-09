@@ -1,3 +1,11 @@
+'''
+new Env('知轩藏书 签到');
+
+'''
+
+
+
+
 import os
 import requests
 import json
