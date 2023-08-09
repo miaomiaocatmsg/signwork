@@ -4,6 +4,8 @@ new Env('TLY 签到');
 Author: Mic_c
 '''
 
+
+
 import time
 import requests
 import base64
@@ -50,7 +52,7 @@ def sign():
     sign_time = get_string_between(res, '<p>上次签到时间：<code>', '</code></p>')
     last_sign_time = datetime.strptime(sign_time, "%Y-%m-%d %H:%M:%S")
     elapsed_time = datetime.now() - last_sign_time
-    print(sign_time)
+    print("上次签到时间",sign_time)
 
     if elapsed_time > timedelta(hours=24):
         print("距上次签到时间大于 24 小时，可签到")
@@ -75,7 +77,7 @@ def sign():
                 print("未签到成功，沉睡 3 秒再来一次")
                 time.sleep(3)
     else:
-        print("还未到时间！", elapsed_time)
+        print("还未到时间！")
 
 if cookie is None:
     print("未获取到 TLY Cookies 请重新获取")
