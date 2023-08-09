@@ -1,9 +1,9 @@
 import os
 import requests
+import json
 
 
 ZX_COOKIES=os.getenv("ZX_COOKIE")
-
 
 
 def sign():
@@ -20,7 +20,10 @@ def sign():
     data = {'action': 'user_checkin'}
 
     response = requests.post(url=zxurl, headers=headers,data=data)
-    print(response.text)
+    result = json.loads(response.text)
+    print(result['msg'])
+        
+
 
 
 if ZX_COOKIES is None:
@@ -28,7 +31,6 @@ if ZX_COOKIES is None:
 else:
     print("已获取到 知轩藏书 Cookies 准备开始签到 ")
     sign()
-
 
 
 
