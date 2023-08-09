@@ -21,7 +21,7 @@ def sign():
 
     response = requests.post(url=zxurl, headers=headers,data=data)
     result = json.loads(response.text)
-    print(result['msg'])
+    print("签到结果：",result['msg'])
         
 
 
