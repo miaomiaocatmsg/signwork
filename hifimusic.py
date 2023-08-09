@@ -23,6 +23,7 @@ def sign():
     'Host': 'hifini.com',
     'Connection': 'keep-alive',
     'Accept': 'text/plain, */*; q=0.01',
+    'X-Requested-With': 'XMLHttpRequest',
     'Referer': 'https://hifini.com/sg_sign.htm'
     }
 
@@ -30,6 +31,7 @@ def sign():
     response = requests.post(url=hifiurl, headers=headers)
     result = json.loads(response.text)
     print("签到结果：",result['message'])
+
         
 
 
