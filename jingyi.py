@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*
 '''
-new Env('精易签到');
+new Env('精易 签到');
 '''
 
 import os
