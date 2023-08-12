@@ -1,5 +1,5 @@
 '''
-new Env('PicoXR网 签到');
+new Env('PicoXR论坛 签到');
 '''
 
 import os
@@ -37,9 +37,9 @@ def sign():
 
 
 if PICOXR_COOKIE is None:
-    print("未获取到 PicoXR网 Cookies 请重新获取")
+    print("未获取到 PicoXR论坛 Cookies 请重新获取")
 else:
-    print("已获取到 PicoXR网 Cookies 准备开始签到 ")
+    print("已获取到 PicoXR论坛 Cookies 准备开始签到 ")
     sign()
 
 
