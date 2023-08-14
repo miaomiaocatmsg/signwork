@@ -1,5 +1,5 @@
 '''
-new Env('PicoXR论坛 签到');
+new Env('PicoXR网 签到');
 '''
 
 import os
@@ -26,20 +26,20 @@ def sign():
     response = requests.post(url=url, headers=headers,)
     result = json.loads(response.text)
     pcsign=result['data']['info']["sum_count"]
+    jf=result['data']['point_records'][0]['score']
     if pcsign==0:
-        print("今日已签到")
+        print("今日已签到过 签到积分：",jf)
     else:
-        jf=result['data']['point_records']["0"]["score"]
-        print("签到成功 本次签到积分：",jf)
+        print("本次签到成功 签到积分：",jf)
 
    
 
 
 
 if PICOXR_COOKIE is None:
-    print("未获取到 PicoXR论坛 Cookies 请重新获取")
+    print("未获取到 PicoXR网 Cookies 请重新获取")
 else:
-    print("已获取到 PicoXR论坛 Cookies 准备开始签到 ")
+    print("已获取到 PicoXR网 Cookies 准备开始签到 ")
     sign()
 
 
