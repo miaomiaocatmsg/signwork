@@ -1,5 +1,5 @@
 '''
-cron: 0 0 0 * * *
+cron: 0 0 0/5 * * *
 new Env('hifini音乐网 签到');
 
 '''
@@ -10,10 +10,12 @@ new Env('hifini音乐网 签到');
 import os
 import requests
 import json
+from json import JSONDecodeError
+
 
 
 HIFI_COOKIE=os.getenv("HIFI_COOKIE")
-
+HIFI_COOKIE="bbs_sid=hkkgt8r5i1hjn56mbjl481jh45; bbs_token=ReaaTtZWPkUCUbqLmrVSmGtmahLAMajwrVXmugDeuzyjl9irodc6TVoqaZ_2F8JTvWJVj1ZcKSyB4BJ5AKp0jMJ2FSQkxHe1FR"
 
 def sign():
     hifiurl = "https://hifini.com/sg_sign.htm"
@@ -29,8 +31,13 @@ def sign():
 
 
     response = requests.post(url=hifiurl, headers=headers)
-    result = json.loads(response.text)
-    print("签到结果：",result['message'])
+    try:
+        result = json.loads(response.text)
+        print("签到结果：",result['message'])
+    except JSONDecodeError:
+        result = response.text
+        print("出现预期外的错误",result)
+        
 
         
 
