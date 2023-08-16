@@ -1,5 +1,5 @@
 '''
-cron: 0 0 * * * *
+cron: 0 0 1 * * *
 new Env('TLY 签到');
 Author: Mic_c
 '''
@@ -11,6 +11,7 @@ import requests
 import base64
 import json
 import os
+
 from datetime import datetime, timedelta
 
 cookie =os.getenv("TLY_COOKIE")
@@ -73,6 +74,16 @@ def sign():
 
             if "流量" in res:
                 is_signed = True
+                start_marker = "alert('"
+                end_marker = "');"
+                start = res.find(start_marker) + len(start_marker)
+                end = res.find(end_marker, start)
+                result = res[start:end]
+                print(result)#考虑到正则很多没有加依赖，所以用普通方式取出来
+
+
+
+
             else:
                 print("未签到成功，沉睡 3 秒再来一次")
                 time.sleep(3)
