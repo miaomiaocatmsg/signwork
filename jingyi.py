@@ -8,7 +8,7 @@ import requests
 import datetime
 from notify import send  # 导入青龙消息通知模块
 
-#签到
+#签到_GO
 def jingyi_checkin():
 
     #读取环境变量里面的COOKIES
