@@ -1,5 +1,7 @@
 '''
+cron: 0 0 0/5 * * *
 new Env('PicoXR网 签到');
+
 '''
 
 import os
