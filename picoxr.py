@@ -44,6 +44,7 @@ def dailyVisit():
         'Accept':'application/json,text/plain,*/*',
         'Origin':'https://bbs.picoxr.com',
         'Referer':'https://bbs.picoxr.com/?is_new_connect=0&is_new_user=0',
+        'Cookie': PICOXR_COOKIE,
 
     }
 
