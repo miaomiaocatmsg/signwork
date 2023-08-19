@@ -1,5 +1,5 @@
 '''
-cron: 0 0 0/5 * * *
+cron: 0 0 0,5 * * *
 new Env('知轩藏书 签到');
 Author: Mic_c
 '''
