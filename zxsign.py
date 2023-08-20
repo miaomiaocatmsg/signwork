@@ -1,11 +1,8 @@
 '''
 cron: 0 0 0,5 * * *
 new Env('知轩藏书 签到');
-Author: Mic_c
+Author: Mic_c 福吧
 '''
-
-
-
 
 import os
 import requests
