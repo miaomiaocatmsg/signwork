@@ -15,7 +15,6 @@ import os
 from datetime import datetime, timedelta
 
 cookie =os.getenv("TLY_COOKIE")
-token = os.getenv("TLY_TOKEN")
 client_id=os.getenv("TLY_Baidu_Client_id")
 client_secret=os.getenv("TLY_Baidu_Client_secret")
 
@@ -98,10 +97,10 @@ if cookie is None:
     print("未获取到 TLY Cookies 请重新获取")
 else:
     print("已获取到 TLY Cookies 准备开始签到 ")
-    if token is None:
-        print("未获取到 TLY token 请自行申请token")
+    if client_id is None:
+        print("未获取到 百度相关key 请自行申请token")
     else:
-        print("已获取到 TLY token 准备开始签到 ")
+        print("已获取到 百度相关key 准备开始签到 ")
         sign()
 
 
