@@ -16,23 +16,28 @@ from datetime import datetime, timedelta
 
 cookie =os.getenv("TLY_COOKIE")
 token = os.getenv("TLY_TOKEN")
+client_id=os.getenv("TLY_Baidu_Client_id")
+client_secret=os.getenv("TLY_Baidu_Client_secret")
 
+def Baidu_Ocr(client_id,client_secret,imgbase64):
+    # client_id 为官网获取的AK， client_secret 为官网获取的SK
+    host = 'https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&client_id='+client_id+'&client_secret='+client_secret
 
-
-# token 在 http://www.bhshare.cn/imgcode/gettoken/ 自行申请
-
-def get_img_code_by_url(imgurl):
-    data = {
-        'token': token,
-        'type': 'online',
-        'uri': imgurl
-    }
-    response = requests.post('http://www.bhshare.cn/imgcode/', data=data)
+    response = requests.get(host)
+    if response:
+    json_str=response.json()
+    Access_token=json_str['access_token']
+    print(Access_token)
+    ocrurl = "https://aip.baidubce.com/rest/2.0/ocr/v1/accurate_basic?access_token="+Access_token
+    ocrparams = {"image":imgbase64}
+    ocrheaders = {'content-type': 'application/x-www-form-urlencoded'}
+    response = requests.post(ocrurl, data=ocrparams, headers=ocrheaders)
     result = json.loads(response.text)
-    if result['code'] == 200:
-        return result['data']
-    else:
-        return 'error'
+    words_values = [item['words'] for item in result['words_result']]
+    ocrtext = ''.join(words_values)
+    print("验证码识别结果",ocrtext)
+    return ocrtext
+
 
 
 def get_string_between(html, start_str, end):
@@ -66,9 +71,8 @@ def sign():
                        'Cookie': cookie}
             img_content = requests.get(url=captcha_url, headers=headers).content
             base64_data = base64.b64encode(img_content)
-            captcha_code = get_img_code_by_url('data:image/jpeg;base64,' + str(base64_data, 'utf-8'))
-
-            sign_url_with_captcha = "https://tly31.com/modules/_checkin.php?captcha=" + captcha_code.upper()
+            ocrtext=Baidu_Ocr(client_id,client_secret,base64_data)
+            sign_url_with_captcha = "https://tly31.com/modules/_checkin.php?captcha=" + ocrtext
             res = requests.get(url=sign_url_with_captcha, headers=headers).text
             print(res)
 
