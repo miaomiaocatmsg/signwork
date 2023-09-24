@@ -25,18 +25,18 @@ def Baidu_Ocr(client_id,client_secret,imgbase64):
 
     response = requests.get(host)
     if response:
-    json_str=response.json()
-    Access_token=json_str['access_token']
-    print(Access_token)
-    ocrurl = "https://aip.baidubce.com/rest/2.0/ocr/v1/accurate_basic?access_token="+Access_token
-    ocrparams = {"image":imgbase64}
-    ocrheaders = {'content-type': 'application/x-www-form-urlencoded'}
-    response = requests.post(ocrurl, data=ocrparams, headers=ocrheaders)
-    result = json.loads(response.text)
-    words_values = [item['words'] for item in result['words_result']]
-    ocrtext = ''.join(words_values)
-    print("验证码识别结果",ocrtext)
-    return ocrtext
+        json_str=response.json()
+        Access_token=json_str['access_token']
+        print(Access_token)
+        ocrurl = "https://aip.baidubce.com/rest/2.0/ocr/v1/accurate_basic?access_token="+Access_token
+        ocrparams = {"image":imgbase64}
+        ocrheaders = {'content-type': 'application/x-www-form-urlencoded'}
+        response = requests.post(ocrurl, data=ocrparams, headers=ocrheaders)
+        result = json.loads(response.text)
+        words_values = [item['words'] for item in result['words_result']]
+        ocrtext = ''.join(words_values)
+        print("验证码识别结果",ocrtext)
+        return ocrtext
 
 
 
