@@ -18,24 +18,29 @@ cookie =os.getenv("TLY_COOKIE")
 client_id=os.getenv("TLY_Baidu_Client_id")
 client_secret=os.getenv("TLY_Baidu_Client_secret")
 
-def Baidu_Ocr(client_id,client_secret,imgbase64):
-    # client_id 为官网获取的AK， client_secret 为官网获取的SK
-    host = 'https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&client_id='+client_id+'&client_secret='+client_secret
 
+def Baidu_GetAccess_token(client_id,client_secret):
+    host = 'https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&client_id='+client_id+'&client_secret='+client_secret
+    # client_id 为官网获取的AK， client_secret 为官网获取的SK
     response = requests.get(host)
     if response:
         json_str=response.json()
         Access_token=json_str['access_token']
-        print(Access_token)
-        ocrurl = "https://aip.baidubce.com/rest/2.0/ocr/v1/accurate_basic?access_token="+Access_token
-        ocrparams = {"image":imgbase64}
-        ocrheaders = {'content-type': 'application/x-www-form-urlencoded'}
-        response = requests.post(ocrurl, data=ocrparams, headers=ocrheaders)
-        result = json.loads(response.text)
-        words_values = [item['words'] for item in result['words_result']]
-        ocrtext = ''.join(words_values)
-        print("验证码识别结果",ocrtext)
-        return ocrtext
+        return Access_token
+
+
+
+
+def Baidu_Ocr(Access_token,imgbase64):
+    ocrurl = "https://aip.baidubce.com/rest/2.0/ocr/v1/accurate_basic?access_token="+Access_token
+    ocrparams = {"image":imgbase64}
+    ocrheaders = {'content-type': 'application/x-www-form-urlencoded'}
+    response = requests.post(ocrurl, data=ocrparams, headers=ocrheaders)
+    result = json.loads(response.text)
+    words_values = [item['words'] for item in result['words_result']]
+    ocrtext = ''.join(words_values)
+    print("验证码识别结果",ocrtext)
+    return ocrtext
 
 
 
@@ -61,8 +66,8 @@ def sign():
 
     if elapsed_time > timedelta(hours=24):
         print("距上次签到时间大于 24 小时，可签到")
-
         is_signed = False
+        AccessToken=Baidu_GetAccess_token(client_id,client_secret)
         while not is_signed:
             # 获取验证码图片
             captcha_url = "https://tly31.com/other/captcha.php"
@@ -70,7 +75,7 @@ def sign():
                        'Cookie': cookie}
             img_content = requests.get(url=captcha_url, headers=headers).content
             base64_data = base64.b64encode(img_content)
-            ocrtext=Baidu_Ocr(client_id,client_secret,base64_data)
+            ocrtext=Baidu_Ocr(AccessToken,base64_data)
             sign_url_with_captcha = "https://tly31.com/modules/_checkin.php?captcha=" + ocrtext
             res = requests.get(url=sign_url_with_captcha, headers=headers).text
             print(res)
