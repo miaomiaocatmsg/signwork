@@ -15,7 +15,6 @@ from json import JSONDecodeError
 
 
 HIFI_COOKIE=os.getenv("HIFI_COOKIE")
-HIFI_COOKIE="bbs_sid=hkkgt8r5i1hjn56mbjl481jh45; bbs_token=ReaaTtZWPkUCUbqLmrVSmGtmahLAMajwrVXmugDeuzyjl9irodc6TVoqaZ_2F8JTvWJVj1ZcKSyB4BJ5AKp0jMJ2FSQkxHe1FR"
 
 def sign():
     hifiurl = "https://hifini.com/sg_sign.htm"
