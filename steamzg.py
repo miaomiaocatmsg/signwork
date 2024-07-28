@@ -1,3 +1,8 @@
+'''
+cron: 0 0 0,5 * * *
+new Env('小叽资源 签到');
+Author: 福吧 Mic_c
+'''
 import os
 import requests
 import json
