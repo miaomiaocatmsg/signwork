@@ -109,7 +109,6 @@ def steam_zg_get_nonce(cookies):
     msg3=steam_zg_lottery(cookies, nonce, baisong_id)
     msg4=steam_zg_lottery(cookies, nonce, baipiao_id)
     msg5=steam_zg_lottery(cookies, nonce, baipiao_id)
-
     send("小叽资源",msg1 + "\n" + msg2 + "\n" + msg3 + "\n" + msg4 + "\n" + msg5)
 
 if __name__ == "__main__":
