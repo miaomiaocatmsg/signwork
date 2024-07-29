@@ -44,7 +44,6 @@ def steam_zg_login(nonce,username, password):
         "User-Agent": USER_AGENT,
     }
     response = requests.post(url, files=files, headers=headers)
-    print(response.text)
     if response.status_code == 200:
         return response.headers.get("Set-Cookie")
     else:
@@ -105,17 +104,17 @@ def steam_zg_get_nonce(cookies):
     nonce = data["_nonce"]
     baisong_id = data["customAccountPointLottery"]["items"][1]["id"]
     baipiao_id = data["customAccountPointLottery"]["items"][2]["id"]
-    print(steam_zg_sign(cookies, nonce))
-    print(steam_zg_lottery(cookies, nonce, baisong_id))
-    send("123123","444444")
-    print(steam_zg_lottery(cookies, nonce, baisong_id))
-    print(steam_zg_lottery(cookies, nonce, baipiao_id))
-    print(steam_zg_lottery(cookies, nonce, baipiao_id))
+    msg1=steam_zg_sign(cookies, nonce)
+    msg2=steam_zg_lottery(cookies, nonce, baisong_id)
+    msg3=steam_zg_lottery(cookies, nonce, baisong_id)
+    msg4=steam_zg_lottery(cookies, nonce, baipiao_id)
+    msg5=steam_zg_lottery(cookies, nonce, baipiao_id)
+
+    send("小叽资源",msg1 + "\n" + msg2 + "\n" + msg3 + "\n" + msg4 + "\n" + msg5)
 
 if __name__ == "__main__":
     account = os.getenv("STEAMZG_ACCOUNT")
     username, password = account.split('#')
-    print(username,password)
     nonce=steam_zg_get_fstnonce()
     cookies = steam_zg_login(nonce,username, password)
     steam_zg_get_nonce(cookies)
