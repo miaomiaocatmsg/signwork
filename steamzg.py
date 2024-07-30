@@ -104,13 +104,15 @@ def steam_zg_get_nonce(cookies):
     nonce = data["_nonce"]
     baisong_id = data["customAccountPointLottery"]["items"][1]["id"]
     baipiao_id = data["customAccountPointLottery"]["items"][2]["id"]
+    vip_id = data["customAccountPointLottery"]["items"][6]["id"]
     msg1=steam_zg_sign(cookies, nonce)
     msg2=steam_zg_lottery(cookies, nonce, baisong_id)
     msg3=steam_zg_lottery(cookies, nonce, baisong_id)
     msg4=steam_zg_lottery(cookies, nonce, baipiao_id)
     msg5=steam_zg_lottery(cookies, nonce, baipiao_id)
-    print(msg1 + "\n" + msg2 + "\n" + msg3 + "\n" + msg4 + "\n" + msg5)
-    send("小叽资源",msg1 + "\n" + msg2 + "\n" + msg3 + "\n" + msg4 + "\n" + msg5)
+    msg6=steam_zg_lottery(cookies, nonce, vip_id)
+    print(msg1 + "\n" + msg2 + "\n" + msg3 + "\n" + msg4 + "\n" + msg5 + "\n" + msg6)
+    send("小叽资源",msg1 + "\n" + msg2 + "\n" + msg3 + "\n" + msg4 + "\n" + msg5 + "\n" + msg6)
 
 if __name__ == "__main__":
     account = os.getenv("STEAMZG_ACCOUNT")
